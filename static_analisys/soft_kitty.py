@@ -13,11 +13,15 @@ if __name__ == "__main__":
     parser.add_argument("-l", "--showlines",
                         action='store_true', help="show occurency line number")
     parser.add_argument("searchpath", help="Path where search regex")
+    parser.add_argument('-e', '--extension', nargs=1, required=True,
+                        action='append', help='Set extension file where search [-e cpp -c h..]')
     args = parser.parse_args()
+
     if args.verbose:
         print("Verbose mode: " + str(args.verbose))
 
-    cppfiles = MyFileFinder(args.searchpath, "cpp")
+    cppfiles = MyFileFinder(args.searchpath, args.extension)
+
     for file in cppfiles.getAllFiles():
         cker = MyFileChecker()
         cker.set_file(file)

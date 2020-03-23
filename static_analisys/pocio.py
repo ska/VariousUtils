@@ -52,18 +52,17 @@ class MyRegex:
 ''' Def my file finder class
 '''
 class MyFileFinder:
-    def __init__(self, path):
-        self.path = path
-        self.extension = ''
-        self.filelist = []
 
     def __init__(self, path, extension):
         self.path = path
-        self.extension = '.'+extension
+        self.extension = extension
         self.filelist = []
 
     def getAllFiles(self):
-        self.filelist = glob.glob( self.path + '/**/*'+self.extension, recursive=True)
+        filelist = []
+        for ext in self.extension:
+            print(str(ext))
+            self.filelist += glob.glob(self.path + '/**/*.' + str(ext)[2:-2], recursive=True)
         return self.filelist
 
 ''' Def my file finder class

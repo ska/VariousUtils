@@ -2,8 +2,6 @@
 https://it.cppreference.com/w/cpp/language/types
 
 TODO:
-- regex for sizeof(xxxxxx)
-- argparse for select multiple extension [ .h, .cpp, .c]
 - MyRegex: in all regex change only the first part. The code could be smarter
 
 TOTEST:
