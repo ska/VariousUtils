@@ -2,7 +2,7 @@
 https://it.cppreference.com/w/cpp/language/types
 
 TODO:
-- Check how to redirect colored output
+- Refactor print part. Need to be smarter!
 
 TOTEST:
 - [ *=0-9*]* --> potrebbe essere presente init = 126 verificare init 0x.. e vari identificatori tipo L(Long)

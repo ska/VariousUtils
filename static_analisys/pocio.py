@@ -18,7 +18,7 @@ class myStyle():
 ''' Def my regex class
 '''
 class MyRegex:
-    def __init__(self, regex, mdescript="", suggest=""):
+    def __init__(self, regex, suggest=""):
         self.regex = regex + "[\s]+[\w]+[\[0-9+\]]*[ *=xX0-9*]*[LlUu]*[;),]{1}"
         self.description = regex
         self.suggest = suggest
@@ -61,7 +61,7 @@ class MyFileFinder:
     def getAllFiles(self):
         filelist = []
         for ext in self.extension:
-            print(str(ext))
+            #print(str(ext))
             self.filelist += glob.glob(self.path + '/**/*.' + str(ext)[2:-2], recursive=True)
         return self.filelist
 
@@ -71,6 +71,7 @@ class MyFileChecker:
     def __init__(self):
         self.file = ''
         self.regex = []
+        self.color = False
 
     def set_file(self, filename):
         self.file = filename
@@ -90,6 +91,9 @@ class MyFileChecker:
             line = fd.readline()
         fd.close()
 
+    def print_with_color(self):
+        self.color = True
+
     def print_res(self, verbose=False, showlines=False):
 
         total_err = 0
@@ -98,18 +102,29 @@ class MyFileChecker:
 
         if total_err or verbose:
             print("")
-            print("Checking file: " + myStyle.BLUE(self.file) + myStyle.RESET(""))
+            if self.color:
+                print("Checking file: " + myStyle.BLUE(self.file) + myStyle.RESET(""))
+            else:
+                print("Checking file: " + self.file)
 
         for reg in self.regex:
             if reg.getcounter():
                 print(" Found " + str(reg.getcounter()) +
                       "\tregex ["+ str(reg.geddescription()) + " X] --> [" + str(reg.getsuggest()) + "]")
                 if showlines:
-                    print(" -Found at line[s]: " + myStyle.YELLOW(str(reg.getLineList())) + myStyle.RESET(""))
+                    if self.color:
+                        print(" -Found at line[s]: " + myStyle.YELLOW(str(reg.getLineList())) + myStyle.RESET(""))
+                    else:
+                        print(" -Found at line[s]: " + str(reg.getLineList()))
 
         if  total_err:
-            print(myStyle.RED("Total regex found " + str(total_err)) + myStyle.RESET(""));
-
+            if self.color:
+                print(myStyle.RED("Total regex found " + str(total_err)) + myStyle.RESET(""));
+            else:
+                print("Total regex found " + str(total_err));
         else:
             if verbose:
-                print(myStyle.GREEN(" 0 regex found")+myStyle.RESET(""));
+                if self.color:
+                    print(myStyle.GREEN(" 0 regex found")+myStyle.RESET(""));
+                else:
+                    print(" 0 regex found");

@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 import argparse
+import os
+import sys
 from pocio import *
 
 #########################
 # Main exec
 #########################
 if __name__ == "__main__":
+    print("" + sys.argv[0])
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", "--verbose",
                         action='store_true', help="set verbose")
     parser.add_argument("-l", "--showlines",
                         action='store_true', help="show occurency line number")
+    parser.add_argument("-p", "--nocolor",
+                        action='store_true', help="sPlain output, no color")
     parser.add_argument("searchpath", help="Path where search regex")
     parser.add_argument('-e', '--extension', nargs=1, required=True,
                         action='append', help='Set extension file where search [-e cpp -c h..]')
@@ -20,8 +25,10 @@ if __name__ == "__main__":
     if args.verbose:
         print("Verbose mode: " + str(args.verbose))
 
-    cppfiles = MyFileFinder(args.searchpath, args.extension)
+    if args.nocolor:
+        print("No colored output set")
 
+    cppfiles = MyFileFinder(args.searchpath, args.extension)
     for file in cppfiles.getAllFiles():
         cker = MyFileChecker()
         cker.set_file(file)
@@ -54,6 +61,9 @@ if __name__ == "__main__":
         cker.add_regex(MyRegex("unsigned long long int", "uint64_t"))
 
         cker.add_regex(MyRegex("uint", "uint16_t"))
+
+        if os.isatty(sys.stdout.fileno()) and not args.nocolor:
+            cker.print_with_color();
 
         cker.check()
         cker.print_res(args.verbose, args.showlines)
