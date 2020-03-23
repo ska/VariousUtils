@@ -19,8 +19,8 @@ class myStyle():
 '''
 class MyRegex:
     def __init__(self, regex, mdescript="", suggest=""):
-        self.regex = regex
-        self.description = mdescript
+        self.regex = regex + "[\s]+[\w]+[\[0-9+\]]*[ *=xX0-9*]*[LlUu]*[;),]{1}"
+        self.description = regex
         self.suggest = suggest
         self.counter = 0
         self.linelist = []

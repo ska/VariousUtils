@@ -2,7 +2,7 @@
 https://it.cppreference.com/w/cpp/language/types
 
 TODO:
-- MyRegex: in all regex change only the first part. The code could be smarter
+- Check how to redirect colored output
 
 TOTEST:
 - [ *=0-9*]* --> potrebbe essere presente init = 126 verificare init 0x.. e vari identificatori tipo L(Long)
