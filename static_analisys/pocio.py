@@ -114,23 +114,3 @@ class MyFileChecker:
         else:
             if verbose:
                 print(myStyle.GREEN(" 0 regex found")+myStyle.RESET(""));
-
-
-'''
-# regex1: Find all "unsigned long X"
-# regex1 = MyRegex("unsigned long[\s]+[\w]+[\[0-9+\]]*[ *=0-9*]*[;),]{1}",  "unsigned long",  "uint32_t")
-# regex2: Find all "unsigned int X"
-# regex2 = MyRegex("unsigned int[\s]+[\w]+[\[0-9+\]]*[ *=0-9*]*[;),]{1}",   "unsigned int",   "uint16_t")
-# regex3: Find all "unsigned short X"
-# regex3 = MyRegex("unsigned short[\s]+[\w]+[\[0-9+\]]*[ *=0-9*]*[;),]{1}", "unsigned short", "uint16_t")
-# regex4: Find all "uint X"
-# regex4 = MyRegex("uint[\s]+[\w]+[\[0-9+\]]*[ *=0-9*]*[;),]{1}",           "uint",           "uint16_t")
-
-Regex unsigned long[\s]+[\w]+[\[0-9+\]]*[ *=0-9*]*[;),]{1}:
-unsigned long --> ASIS
-[\s]+         --> almeno uno spazio
-[\w]+         --> almeno un carattere [a-zA-Z0-9_]
-[\[0-9+\]]*   --> potrebbe essere presente [89] (array)
-[ *=0-9*]*    --> potrebbe essere presente init = 126
-[;),]{1}      --> potrebbe essere o Variabile o argomento di funzione
-'''
