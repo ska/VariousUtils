@@ -28,6 +28,10 @@ if __name__ == "__main__":
     if args.nocolor:
         print("No colored output set")
 
+    if os.isatty(sys.stdout.fileno()) and not args.nocolor:
+        myprint = MyPrint.Instance()
+        myprint.set_color(True)
+
     cppfiles = MyFileFinder(args.searchpath, args.extension)
     for file in cppfiles.getAllFiles():
         cker = MyFileChecker()
@@ -61,9 +65,6 @@ if __name__ == "__main__":
         cker.add_regex(MyRegex("unsigned long long int", "uint64_t"))
 
         cker.add_regex(MyRegex("uint", "uint16_t"))
-
-        if os.isatty(sys.stdout.fileno()) and not args.nocolor:
-            cker.print_with_color();
 
         cker.check()
         cker.print_res(args.verbose, args.showlines)
